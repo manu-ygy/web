@@ -1,0 +1,161 @@
+.hero {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: rgb(131,58,180);
+    background: linear-gradient(180deg,#011a3b,#033d8c);
+    color: white;
+}
+
+.hero-title {
+    font-family: 'Nexa', sans-serif;
+    text-transform: uppercase;
+    font-size: 50pt;
+    text-align: center;
+}
+
+.hero-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 40%;
+    text-align: center;
+}
+
+.hero-carousel {
+    width: calc(30% - 32px);
+    height: calc(100% - 32px);
+    padding: 32px;
+    box-sizing: border-box;
+    right: 32px;
+    background: #3b90ff;
+    top: 32px;
+    gap: 32px;
+    display: flex;
+    flex-direction: column; 
+    border-radius: 8px;
+    margin: 32px;
+    overflow-y: auto;
+}
+
+.hero-image {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+}
+
+.image-wrapper {
+    position: relative;
+}
+
+.image-wrapper:hover .image-overlay {
+    opacity: 1;
+    transition: 0.5s;
+}
+
+.image-overlay {
+    transition: 0.5s;
+    opacity: 0;
+    content: '';
+    background: rgba(0, 0, 0, 0.6);
+    color: #fafafa;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: calc(100% - 7px);
+    z-index: 2;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.carousel-background {
+    width: 100%;
+}
+
+.gallery {
+    width: 35%;
+    height: 100%;
+    background: blue;
+    display: flex;
+}
+
+.main {
+    width: 100%;
+    height: auto;
+    background: #fafafa;
+    position: relative;
+    flex-direction: column;
+}
+
+section {
+    width: 100%;
+    min-height: 100%;
+}
+
+.content {
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.content-body {
+    width: 70%;
+}
+
+.content-image {
+    width: 35%;
+    height: 70%;
+    margin-right: 16px;
+    object-fit: contain;
+    position: absolute;
+    bottom: 0;
+    left: -64px;
+}
+
+.content-text {
+    padding-left: calc(35% + 16px);
+}
+
+.header {
+    width: 100%;
+    padding: 32px;
+    box-sizing: border-box;
+    top: 0;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+}
+
+.header-content {
+    text-decoration: none;
+}
+
+.header.sticky {
+    position: sticky;
+    background: pink;
+}
+
+.bottom-header {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    gap: 16px;
+    font-weight: 500;
+    align-items: center;
+    color: white;
+}
+
+.header-right {
+    margin-left: auto;
+}
