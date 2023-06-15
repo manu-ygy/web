@@ -5,9 +5,20 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background: rgb(131,58,180);
-    background: linear-gradient(180deg,#011a3b,#033d8c);
+    background: #364387ff;
     color: white;
+}
+
+.hero-cover {
+    background-image: url(https://www.greatschools.org/gk/wp-content/uploads/2014/03/The-school-visit-what-to-look-for-what-to-ask-1.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    z-index: 0;
+    filter: blur(3px);
+    opacity: 0.4;
 }
 
 .hero-title {
@@ -32,7 +43,7 @@
     padding: 32px;
     box-sizing: border-box;
     right: 32px;
-    background: #3b90ff;
+    background: #e7cbd7ff;
     top: 32px;
     gap: 32px;
     display: flex;
@@ -135,15 +146,40 @@ section {
     display: flex;
     flex-direction: column;
     position: absolute;
+    z-index: 2;
 }
 
 .header-content {
     text-decoration: none;
 }
 
+.header.animation-backward {
+    transition: 0.2s;
+    transform: translateY(-100%);
+}
+
 .header.sticky {
-    position: sticky;
-    background: pink;
+    position: fixed;
+    background: #fafafa;
+    padding: 16px 32px;
+    top: 0;
+    transform: translateY(-100%);
+    animation-name: enterance;
+    animation-duration: 0.2s;
+    animation-fill-mode: forwards;
+}
+
+@keyframes enterance {
+    from {
+        transform: translateY(-100%);
+    }
+    to {
+        transform: translateY(0);
+    }
+}
+
+.header.sticky a {
+    color: #333333 !important;
 }
 
 .bottom-header {

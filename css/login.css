@@ -1,3 +1,8 @@
+body {
+    background: rgb(98, 117, 214);
+    user-select: none;
+}
+
 .wrapper {
     width: calc(100% - 256px);
     height: calc(100% - 128px);
@@ -7,7 +12,7 @@
     flex-direction: row;
     box-sizing: border-box;
     border-radius: 16px;
-    box-shadow: 0px 0px 53px 39px rgba(0,0,0,0.1);
+    box-shadow: 0px 0px 53px 39px rgba(79, 79, 79, 0.1);
     position: absolute;
     top: 50%;
     left: 50%;
@@ -24,6 +29,13 @@
     background-repeat: no-repeat;
     background-size: cover;
     border-radius: 16px 0 0 16px;
+    color: #fafafa;
+    display: flex;
+    flex-direction: column;
+    padding: 32px;
+    box-sizing: border-box;
+    justify-content: flex-end;
+    text-align: right;
 }
 
 .main {
@@ -56,4 +68,38 @@
     font-family: 'Nexa', sans-serif;
     text-transform: uppercase;
     margin: 0;
+}
+
+.password-wrapper {
+    display: flex;
+    width: 100%;
+    gap: 16px;
+}
+
+.password-wrapper>.input {
+    width: 100%;
+}
+
+.password-show {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: max-content;
+    background: none; 
+    border: 0;
+    font: inherit;
+}
+
+.actions {
+    margin: auto;
+    display: flex;
+    gap: 16px
+}
+
+.submit {
+    margin-top: 32px;
+}
+
+.password-show:focus {
+    outline: none;
 }

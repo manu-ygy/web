@@ -5,12 +5,16 @@
         <meta name = "viewport" content = "width=device-width, initial-scale=1.0">
         <link rel = "stylesheet" href = "css/style.css">
         <link rel = "stylesheet" href = "css/login.css">
+
+        <script src="https://kit.fontawesome.com/1cf918f51b.js" crossorigin="anonymous"></script>
+        <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
     </head>
 
     <body>
         <div class = "wrapper">
             <div class = "side">
-                <h1>side</h1>
+                <strong>Lorem ipsum</strong>
+                <span>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Id voluptatum voluptate accusamus dignissimos.</span>
             </div>
     
             <main class = "main">
@@ -21,19 +25,45 @@
                     </div>
     
                     <label for = "username">Username: </label>
-                    <input name = "username" class = "input username">
+                    <div class = "input input-wrapper">
+                        <i class = "fa fa-user"></i>
+                        <input name = "username" class = "input-box username">
+                    </div>
         
                     <label for = "password">Password: </label>
                     <div class = "password-wrapper">
-                        <input name = "password" class = "input password" type = "password">
-                        <div class = "password-show"></div>
+                        <div class = "input input-wrapper">
+                            <i class = "fa fa-key"></i>
+                            <input name = "password" class = "input-box password" type = "password">
+                        </div>
+                        <button class = "password-show">
+                            <i class = "fa fa-eye"></i>
+                        </button>
                     </div>
-                    <a>Lupa password?</a>
-                    <input type = "submit" class = "button" value = "Login">
-        
-                    <a>Tidak punya akun?</a>
+                    <input type = "submit" class = "button submit" value = "Login">
+
+                    <small class = "actions">
+                        <a href = "/user/resetpass">Lupa password?</a>
+                        <a href = "/user/account">Tidak punya akun?</a>
+                    </small>
                 </form>
             </main>
         </div>
+
+        <script>
+            $('.password-show').on('click', function(event) {
+                event.preventDefault()
+                if ($('.password').attr('type') == 'text') {
+                    $('.password').attr('type', 'password')
+                } else {
+                    $('.password').attr('type', 'text')
+                }
+                
+            })
+
+            $('.submit').on('click', function(event) {
+                event.preventDefault()
+            })
+        </script>
     </body>
 </html>

@@ -4,6 +4,9 @@
         <link rel = "stylesheet" href = "css/style.css">
         <link rel = "stylesheet" href = "css/index.css">
         <meta name = "viewport" content = "width=device-width, initial-scale=1.0">
+
+        <script src="https://kit.fontawesome.com/1cf918f51b.js" crossorigin="anonymous"></script>
+        <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
         <title>Draft website</title>
     </head>
 
@@ -26,6 +29,7 @@
         </header>
 
         <section class = "hero">
+            <div class = "hero-cover"></div>
             <div class = "hero-text">
                 <h1 class = "hero-title">SMA Yos Sudarso Karawang</h1>
                 <p class = "hero-subtitle">Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto, itaque ullam mollitia assumenda doloremque sed, eligendi cum, cupiditate blanditiis delectus consequatur aspernatur nobis reprehenderit molestiae deleniti voluptatibus fugit amet exercitationem.</p>
@@ -78,6 +82,21 @@
                 
                 </div>
             </section>
+
+            <script>
+                var toggled = false
+                $(window).scroll(function(){
+                    $('.header').removeClass('animation-backward')
+                    if ($(window).scrollTop() >= $('.header').height() + 64) {
+                        $('.header').addClass('sticky')
+                        toggled = false
+                    } else {
+                        if (!toggled) {
+                            $('.header').removeClass('sticky')
+                        }
+                    }
+                })
+            </script>
         </main>
     </body>
 </html>
