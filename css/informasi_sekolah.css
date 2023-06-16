@@ -26,3 +26,77 @@ body {
     text-transform: uppercase;
     margin: 0;
 }
+
+.header {
+    width: 100%;
+    padding: 32px;
+    box-sizing: border-box;
+    top: 0;
+    left: 0;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    z-index: 2;
+    background-color: rgb(57, 65, 141);
+}
+
+.header-content {
+    text-decoration: none;
+}
+
+.header.sticky {
+    position: fixed;
+    background: #fafafa;
+    padding: 16px 32px;
+    top: 0;
+    transform: translateY(-100%);
+    animation-name: enterance;
+    animation-duration: 0.2s;
+    animation-fill-mode: none;
+}
+
+@keyframes enterance {
+    from {
+        transform: translateY(-100%);
+    }
+    to {
+        transform: translateY(0);
+    }
+}
+
+.header.sticky a {
+    color: #333333 !important;
+}
+
+.bottom-header {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    gap: 16px;
+    font-weight: 500;
+    align-items: center;
+    color: white;
+}
+
+.header-right {
+    margin-left: auto;
+}
+
+.main {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    gap: 16px;
+    font-weight: 500;
+    align-items: center;
+    color: white;
+}
+
+.footer {
+    position: fixed;
+    bottom: 0px;
+    left: 0px;
+    height: 30px;
+    background-color: aquamarine;
+}

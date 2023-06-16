@@ -1,3 +1,7 @@
+body, html {
+    overflow-y: hidden;
+}
+
 body {
     background: rgb(98, 117, 214);
     user-select: none;
@@ -102,4 +106,19 @@ body {
 
 .password-show:focus {
     outline: none;
+}
+
+.sent {
+    display: none;
+    opacity: 0;
+    flex-direction: column;
+}
+
+.sent.active {
+    transition: 0.2s opacity;
+    display: flex;
+    opacity: 1;
+    min-width: 100%;
+    justify-content: center;
+    align-items: center;
 }

@@ -1,0 +1,58 @@
+<html>
+    <body>
+        <h1>Moderasi user</h1>
+        <table class = "user-body">
+            <tr>
+                <th>ID</th>
+                <th>Nama</th>
+                <th>Email</th>
+                <th>Tanggal dibuat</th>
+                <th>Tipe akun</th>
+                <th>Tindakan</th>
+            </tr>
+        </table>
+
+        <label>Nama</label>
+        <input class = "account-name" value = "test">
+
+        <label>Password</label>
+        <input class = "account-password" value = "test">
+
+        <label>Email</label>
+        <input class = "account-email" value = "test">
+
+        <label>Tanggal dibuat</label>
+        <input class = "account-date" type = "date" value = "2023-06-16">
+
+        <label>Tipe akun</label>
+        <input class = "account-type" value = "user">
+
+        <button onclick = "addUser()">Tambah</button>
+
+        <script>
+            function renderUser() {
+                $.post('/api/admin.php', {method: 'get_users'}, function(data, status) {
+                    $('.user-body').html('<tr><th>ID</th><th>Nama</th><th>Email</th><th>Tanggal dibuat</th><th>Tipe akun</th><th>Tindakan</th></tr>')
+                    data = JSON.parse(data)
+                    data.forEach(function(user) {
+                        $('.user-body').append(`<tr><td>${user.id}</td><td>${user.username}</td><td>${user.email}</td><td>${user.createdat}</td><td>${user.usertype}</td><td><button>Edit</button><button onclick = "removeUser(${user.id})">Hapus</button></td></tr>`)
+                    })
+                })
+            }
+
+            function addUser() {
+                $.post('/api/admin.php', {method: 'add_user', name: $('.account-name').val(), password: $('.account-password').val(), email: $('.account-email').val(), date: $('.account-date').val(), type: $('.account-type').val()}, function(data, status) {
+                    renderUser()
+                })
+            }
+
+            function removeUser(id) {
+                $.post('/api/admin.php', {method: 'remove_user', id: id}, function(data, status) {
+                    renderUser()
+                })
+            }
+
+            renderUser()
+        </script>
+    </body>
+</html>
