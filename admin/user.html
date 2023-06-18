@@ -1,7 +1,7 @@
 <html>
     <body>
         <h1>Moderasi user</h1>
-        <table class = "user-body">
+        <table class = "user-body table">
             <tr>
                 <th>ID</th>
                 <th>Nama</th>
@@ -12,31 +12,73 @@
             </tr>
         </table>
 
+        <div class = "pagination"></div>
+
         <label>Nama</label>
-        <input class = "account-name" value = "test">
+        <input class = "input account-name" value = "test">
 
         <label>Password</label>
-        <input class = "account-password" value = "test">
+        <input class = "input account-password" value = "test">
 
         <label>Email</label>
-        <input class = "account-email" value = "test">
+        <input class = "input account-email" value = "test">
 
         <label>Tanggal dibuat</label>
-        <input class = "account-date" type = "date" value = "2023-06-16">
+        <input class = "input account-date" type = "date" value = "2023-06-16">
 
         <label>Tipe akun</label>
-        <input class = "account-type" value = "user">
+        <select class = "input account-type">
+            <option value = "student">Murid</option>
+            <option value = "teacher">Guru</option>
+        </select>
 
-        <button onclick = "addUser()">Tambah</button>
+        <button class = "button" onclick = "addUser()">Tambah</button>
 
         <script>
+            var userData = []
+            var limit = 10
+            var currentPage = 0
+
+            function displayPaginated() {
+                $('.user-body').html('<tr><th>ID</th><th>Nama</th><th>Email</th><th>Tanggal dibuat</th><th>Tipe akun</th><th>Tindakan</th></tr>')
+                console.log(limit * currentPage)
+                var toFormat = userData.slice(limit * currentPage, (limit * currentPage) + limit)
+                toFormat.forEach(function(user) {
+                    $('.user-body').append(`<tr><td>${user.id}</td><td>${user.username}</td><td>${user.email}</td><td>${user.createdat}</td><td>${user.usertype}</td><td class = "button-parent"><button class = "button">Edit</button><button class = "button" onclick = "removeUser(${user.id})">Hapus</button></td></tr>`)
+                })
+
+                $('.pagination').html('')
+                $('.pagination').append(`<button class = "pagination-prev active" onclick = "movePagination(${currentPage - 1})"><</button>`)
+                if (currentPage <= 0) {
+                    $('.pagination-prev').prop('disabled', true)
+                    $('.pagination-prev').removeClass('active')
+                }
+
+                for (x = 0; x < Math.ceil(userData.length / limit); x++) {
+                    if (x == currentPage) {
+                        $('.pagination').append(`<button class = "active" onclick = "movePagination(${x})">${x + 1}</button>`)   
+                    } else {
+                        $('.pagination').append(`<button onclick = "movePagination(${x})">${x + 1}</button>`)
+                    }
+                }
+
+                $('.pagination').append(`<button class = "pagination-next active" onclick = "movePagination(${currentPage + 1})">></button>`)
+                if (Math.ceil(userData.length / limit) - 1 <= currentPage) {
+                    $('.pagination-next').prop('disabled', true)
+                    $('.pagination-next').removeClass('active')
+                }
+            }
+
+            function movePagination(page) {
+                currentPage = page
+                displayPaginated()
+            }
+
             function renderUser() {
                 $.post('/api/admin.php', {method: 'get_users'}, function(data, status) {
                     $('.user-body').html('<tr><th>ID</th><th>Nama</th><th>Email</th><th>Tanggal dibuat</th><th>Tipe akun</th><th>Tindakan</th></tr>')
-                    data = JSON.parse(data)
-                    data.forEach(function(user) {
-                        $('.user-body').append(`<tr><td>${user.id}</td><td>${user.username}</td><td>${user.email}</td><td>${user.createdat}</td><td>${user.usertype}</td><td><button>Edit</button><button onclick = "removeUser(${user.id})">Hapus</button></td></tr>`)
-                    })
+                    userData = JSON.parse(data)
+                    displayPaginated()
                 })
             }
 

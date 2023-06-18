@@ -1,0 +1,9 @@
+{
+    "name": "manu/web",
+    "description": "Web SMA Yos Sudarso Karawang",
+    "type": "project",
+    "require": {
+        "robthree/twofactorauth": "^1.8"
+    },
+    "license": "MIT"
+}

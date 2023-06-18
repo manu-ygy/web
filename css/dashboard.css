@@ -17,6 +17,7 @@
     width: 70%;
     padding: 32px;
     box-sizing: border-box;
+    overflow-y: auto;
 }
 
 .item-container {
