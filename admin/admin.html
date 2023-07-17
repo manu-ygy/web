@@ -1,4 +1,14 @@
 <html>
+    <head>
+        <style>
+            td:not(.id-column, .username-column) * {
+                display: flex;
+                width: 100%;
+                align-items: center;
+            }
+        </style>
+    </head>    
+
     <body>
         <div class = "input-popup">
             <label>Nama:</label>
@@ -6,36 +16,33 @@
     
             <label>Password:</label>
             <input class = "input account-password" value = "test">
-    
-            <label>Email:</label>
-            <input class = "input account-email" value = "test">
-    
-            <div class = "input-popup-group">
-                <div>
-                    <label>Tanggal dibuat:</label>
-                    <input class = "input account-date" type = "date">
-                </div>
 
-                <div>
-                    <label>Tipe akun:</label>
-                    <select class = "input account-type">
-                        <option value = "student">Murid</option>
-                        <option value = "teacher">Guru</option>
-                    </select>
-                </div>
+            <label>Akses:</label>
+            <div class = "input-popup-group">
+                <input class = "moderate-user" id = "moderate-user" type = "checkbox">
+                <label for = "moderate-user">Moderasi user</label>
+                
+                <input class = "moderate-admin" id = "moderate-admin" type = "checkbox">
+                <label for = "moderate-admin">Moderasi admin</label>
+
+                <input class = "moderate-content" id = "moderate-content" type = "checkbox">
+                <label for = "moderate-content">Moderasi konten</label>
+
+                <input class = "moderate-pages" id = "moderate-pages" type = "checkbox">
+                <label for = "moderate-pages">Moderasi halaman</label>
             </div>
 
             <div class = "input-popup-group" style = "margin-left: auto; gap: 8px">
-                <button class = "button" onclick = "addUser()">Tambah</button>
+                <button class = "button" onclick = "addAdmin()">Tambah</button>
                 <button class = "button" onclick = "$('.overlay').hide(); $('.input-popup').removeClass('active')">Batal</button>
                 <!--<button class = "button">Masukkan sekaligus dari spritesheet</button>-->
             </div>
         </div>
 
-        <h1>Moderasi user</h1>
+        <h1>Moderasi admin</h1>
 
         <div class = "toolbar">
-            <input class = "input user-search" placeholder = "Cari nama/email user ...">
+            <input class = "input user-search" placeholder = "Cari nama admin ...">
             <select class = "input">
                 <option value = "student">Tampilan per baris</option>
                 <option value = "teacher">10</option>
@@ -43,18 +50,10 @@
                 <option value = "">100</option>
                 <option value = "all">Semua</option>
             </select>
-            <button class = "button" style = "margin-left: auto" onclick = "$('.overlay').show(); $('.input-popup').addClass('active')">Tambah user</button>
+            <button class = "button" style = "margin-left: auto" onclick = "$('.overlay').show(); $('.input-popup').addClass('active')">Tambah admin</button>
         </div>
 
         <table class = "user-body table">
-            <tr>
-                <th>ID</th>
-                <th>Nama</th>
-                <th>Email</th>
-                <th>Tanggal dibuat</th>
-                <th>Tipe akun</th>
-                <th>Tindakan</th>
-            </tr>
         </table>
 
         <center>
@@ -69,10 +68,15 @@
             function displayPaginated() {
                 filteredData = filterData(userData)
 
-                $('.user-body').html('<tr><th>ID</th><th>Nama</th><th>Email</th><th>Tanggal dibuat</th><th>Tipe akun</th><th>Tindakan</th></tr>')
+                $('.user-body').html('<tr><th>ID</th><th>Nama</th><th>Akses mod. user</th><th>Akses mod. admin</th><th>Akses mod. konten</th><th>Akses mod. halaman</th><th>Tindakan</th></tr>')
                 var toFormat = filteredData.slice(limit * currentPage, (limit * currentPage) + limit)
                 toFormat.forEach(function(user) {
-                    $('.user-body').append(`<tr><td>${user.id}</td><td>${user.username}</td><td>${user.email}</td><td>${user.createdat}</td><td>${user.usertype}</td><td class = "button-parent"><button class = "button">Edit</button><button class = "button" onclick = "removeUser(${user.id})">Hapus</button></td></tr>`)
+                    $('.user-body').append(`<tr><td class = "id-column">${user.id}</td><td class = "username-column">${user.username}</td><td>${user.moderateusers_permission}</td><td>${user.moderateadmin_permission}</td><td>${user.moderatecontent_permission}</td><td>${user.moderatepages_permission}</td><td class = "button-parent"><button class = "button">Edit</button><button class = "button" onclick = "removeAdmin(${user.id})">Hapus</button></td></tr>`)
+                })
+
+                $('td:not(.id-column, .username-column, .button-parent)').each(function(index, element) {
+                    $(element).html($(element).html().replace(1, '<input type = "checkbox" checked disabled>'))
+                    $(element).html($(element).html().replace(0, '<input type = "checkbox" disabled>'))
                 })
 
                 $('.pagination').html('')
@@ -110,7 +114,7 @@
 
             function filterData(data) {
                 return data.filter(function(user) {
-                    return user.username.includes($('.user-search').val()) || user.email.includes($('.user-search').val())
+                    return user.username.includes($('.user-search').val())
                 })
             }
 
@@ -119,31 +123,31 @@
                 displayPaginated()
             }
 
-            function renderUser() {
-                $.post('/api/admin.php', {method: 'get_users'}, function(data, status) {
-                    $('.user-body').html('<tr><th>ID</th><th>Nama</th><th>Email</th><th>Tanggal dibuat</th><th>Tipe akun</th><th>Tindakan</th></tr>')
+            function renderAdmin() {
+                $.post('/api/admin.php', {method: 'get_admins'}, function(data, status) {
                     if (data) {
                         userData = JSON.parse(data)
                         displayPaginated()
                     } else {
-                        $('.user-body').append('<tr><td colspan = "100"><center>Belum ada user</center></td></tr>')
+                        $('.user-body').append('<tr><td colspan = "100"><center>Belum ada admin</center></td></tr>')
                     }
                 })
             }
 
-            function addUser() {
-                $.post('/api/admin.php', {method: 'add_user', name: $('.account-name').val(), password: $('.account-password').val(), email: $('.account-email').val(), date: $('.account-date').val(), type: $('.account-type').val()}, function(data, status) {
-                    renderUser()
+            function addAdmin() {
+                $.post('/api/admin.php', {method: 'add_admin', name: $('.account-name').val(), password: $('.account-password').val(), moderateusers_permission: $('.moderate-user').prop('checked'), moderateadmin_permission: $('.moderate-admin').prop('checked'), moderatecontent_permission: $('.moderate-content').prop('checked'), moderatepages_permission: $('.moderate-pages').prop('checked')}, function(data, status) {
+                    console.log(data)
+                    renderAdmin()
                 })
             }
 
-            function removeUser(id) {
-                $.post('/api/admin.php', {method: 'remove_user', id: id}, function(data, status) {
-                    renderUser()
+            function removeAdmin(id) {
+                $.post('/api/admin.php', {method: 'remove_admin', id: id}, function(data, status) {
+                    renderAdmin()
                 })
             }
 
-            renderUser()
+            renderAdmin()
 
             $('.user-search').on('keyup keydown click', function() {
                 displayPaginated()

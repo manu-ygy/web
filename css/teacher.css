@@ -1,0 +1,85 @@
+h1 {
+    margin: 0;
+}
+
+.teacher-title {
+    width: 100%;
+    padding: 64px;
+    box-sizing: border-box;
+    background: linear-gradient(45deg, rgba(98,117,214,1) 0%, rgba(54,67,135,1) 47%, rgba(121,49,179,1) 100%);
+    color: white;
+    display: flex;
+}
+
+.teacher-search {
+    margin-left: auto;
+}
+
+.teacher-container {
+    display: flex;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 0 32px 32px 32px;
+    box-sizing: border-box;
+}
+
+hr {
+    height: 12px;
+    width: 10%;
+    position: relative;
+    margin: 30px auto;
+    border: 0;
+}
+
+hr::after {
+    content: '';
+    width: 12px;
+    height: 12px;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #424242;
+    border-radius: 8px;
+}
+
+hr::before {
+    content: '';
+    width: 100%;
+    height: 1px;
+    background: #424242;
+    position: absolute;
+    top: 50%;
+    left: 0;
+}
+
+.teacher-label {
+    text-align: center;
+    margin: 48px 0 32px 0;
+}
+
+.teacher-group {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+}
+
+.teacher {
+    display: flex;
+    background: rgb(98, 117, 214);
+    color: white;
+    width: max-content;
+    border-radius: 8px;
+    width: 30%;
+}
+
+.teacher-content {
+    padding: 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}

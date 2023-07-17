@@ -1,0 +1,38 @@
+h1 {
+    margin: 0;
+}
+
+main {
+    height: 100%;
+    width: 100%;
+}
+
+.page-title {
+    width: 100%;
+    padding: 64px;
+    box-sizing: border-box;
+    background: linear-gradient(45deg, rgba(98,117,214,1) 0%, rgba(54,67,135,1) 47%, rgba(121,49,179,1) 100%);
+    color: white;
+    display: flex;
+}
+
+.page-cover {
+    height: 90%;
+    width: 100%;;
+    box-sizing: border-box;
+    background: linear-gradient(45deg, rgba(98,117,214,1) 0%, rgba(54,67,135,1) 47%, rgba(121,49,179,1) 100%);
+    color: white;
+    display: flex;
+    position: relative;
+}
+
+.page-cover-image {
+    position: absolute;
+    height: 100%;
+    width: auto;
+    opacity: 0.8;
+}
+
+.page-content {
+    padding: 32px 64px;
+}

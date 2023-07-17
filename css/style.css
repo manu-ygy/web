@@ -78,3 +78,161 @@ body {
     background: white;
 }
 
+.header-holder {
+    height: 88px;
+}
+
+.header {
+    width: 100%;
+    box-sizing: border-box;
+    top: 0;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    z-index: 2;
+    padding: 0 32px;
+    position: fixed;
+    box-shadow: 0px 0px 53px 39px rgba(79, 79, 79, 0.1);
+    z-index: 999;
+    background: white;
+}
+
+.header a {
+    color: inherit;
+}
+
+.dropdown {
+    position: relative;
+    padding: 0;
+}
+
+.dropdown-list {
+    display: none;
+    color: black;
+    box-shadow: 0px 0px 53px 39px rgba(79, 79, 79, 0.1);
+    z-index: 1;
+}
+
+.dropdown:hover .dropdown-list {
+    min-width: 250px;
+    background:#364387ff;
+    position: absolute;
+    top: 64px;
+    left: 0;
+    display: flex !important;
+    flex-direction: column;
+    list-style-type: none;
+    padding: 0;
+    border-radius: 8px;
+    z-index: -1;
+}
+
+.dropdown-item {
+    padding: 16px;
+    box-sizing: border-box;
+    color: #fafafa;
+}
+
+.dropdown-item:hover {
+    background: #fafafa;
+    color: #364387ff !important;
+}
+
+.dropdown-list a:last-child .dropdown-item {
+    border-radius: 0 0 8px 8px;
+}
+
+.dropdown-list a:first-child .dropdown-item {
+    border-radius: 8px 8px 0 0;
+}
+
+.header-content {
+    text-decoration: none;
+    padding: 32px 8px;
+}
+
+.header-content .fa-caret-down {
+    margin-left: 8px;
+}
+
+.header.animation-backward {
+    transition: 0.2s;
+    transform: translateY(-100%);
+}
+
+.header.sticky {
+    position: fixed;
+    background: #ffffff;
+    padding: 0 32px;
+    top: 0;
+    transform: translateY(-100%);
+    animation-name: enterance;
+    animation-duration: 0.2s;
+    animation-fill-mode: forwards;
+    box-shadow: 0px 0px 53px 39px rgba(79, 79, 79, 0.1);
+    z-index: 999;
+}
+
+.sticky .dropdown-item {
+    color: #fafafa;
+}
+
+.sticky .dropdown span {
+    color: black;
+}
+
+@keyframes enterance {
+    from {
+        transform: translateY(-100%);
+    }
+    to {
+        transform: translateY(0);
+    }
+}
+
+@keyframes header-holder {
+    from {
+        height: 0;
+    }
+    to {
+        height: 88px;
+    }
+}
+
+.header.sticky .header-content {
+    color: #333333;
+}
+
+.bottom-header {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    gap: 16px;
+    font-weight: 500;
+    align-items: center;
+}
+
+.header-right {
+    margin-left: auto;
+    display: flex;
+    gap: 8px;
+}
+
+.footer {
+    background-color: #364387ff;
+    color: white;
+    padding: 32px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    font-size: 11pt;
+}
+
+.footer h3 {
+    margin: 0;
+}
+
+.copyright {
+    margin-top: 32px;
+    text-align: center;
+}

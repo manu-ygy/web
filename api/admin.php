@@ -128,10 +128,6 @@
 
                 break;
 
-            case 'resetpass':
-                echo "success";
-                break;
-
             case 'add_user':
                 if (isset($_POST['name']) && isset($_POST['password']) && isset($_POST['email']) && isset($_POST['date']) && isset($_POST['type'])) {
                     $username = $_POST['name'];
@@ -155,6 +151,54 @@
                     $id = $_POST['id'];
 
                     $sql = "DELETE FROM users WHERE id = $id";
+
+                    if (mysqli_query($conn, $sql)){
+                        echo 'success';
+                    } else {
+                        echo $conn->error;
+                    }
+                }
+                break;
+
+            case 'get_admins':
+                $sql = "SELECT username, id, moderateusers_permission, moderatecontent_permission, moderateadmin_permission, moderatepages_permission FROM admin";
+                $result = $conn->query($sql);
+
+                if ($result->num_rows > 0) {
+                    $rows = array();
+                    while($r = mysqli_fetch_array($result)) {
+                        $rows[] = $r;
+                    }
+                    echo json_encode($rows);                  
+                }
+
+                break;
+
+            case 'add_admin':
+                if (isset($_POST['name']) && isset($_POST['password']) && isset($_POST['moderateusers_permission']) && isset($_POST['moderatecontent_permission']) && isset($_POST['moderatepages_permission']) && isset($_POST['moderateadmin_permission'])) {
+                    $username = $_POST['name'];
+                    $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
+                    $moderateusers = $_POST['moderateusers_permission'];
+                    $moderateadmin = $_POST['moderateadmin_permission'];
+                    $moderatecontent = $_POST['moderatecontent_permission'];
+                    $moderatepages = $_POST['moderatepages_permission'];
+
+                    $sql = "INSERT INTO admin (username, password, moderateusers_permission, moderateadmin_permission, moderatecontent_permission, moderatepages_permission) VALUES ('$username', '$password', $moderateusers, $moderateadmin, $moderatecontent, $moderatecontent)";
+
+                    if (mysqli_query($conn, $sql)){
+                        echo 'success';
+                    } else {
+                        echo $conn->error;
+                    }
+                } 
+                
+                break;
+
+            case 'remove_admin':
+                if (isset($_POST['id'])) {
+                    $id = $_POST['id'];
+
+                    $sql = "DELETE FROM admin WHERE id = $id";
 
                     if (mysqli_query($conn, $sql)){
                         echo 'success';

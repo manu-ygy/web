@@ -18,6 +18,8 @@
 
         <script src="https://kit.fontawesome.com/1cf918f51b.js" crossorigin="anonymous"></script>
         <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script src='https://www.hCaptcha.com/1/api.js' async defer></script>
     </head>
 
     <body>
@@ -50,17 +52,18 @@
                             <i class = "fa fa-eye"></i>
                         </button>
                     </div>
+
+                    <center class = "captcha-parent">
+                        <div class = "h-captcha" data-sitekey = "10000000-ffff-ffff-ffff-000000000001" data-callback = "correctCaptcha"></div>
+                    </center>
+
                     <input type = "submit" class = "button submit" value = "Login">
 
                     <small class = "actions">
                         <a href = "/user/resetpass.php">Lupa password?</a>
                         <a href = "/user/account">Tidak punya akun?</a>
+                        <a href = "">Login pakai sch.id</a>
                     </small>
-
-                    <button class = "button">
-                        <i class = "google-icon"></i>
-                        Masuk dengan akun sch.id
-                    </button>
                 </form>
             </main>
         </div>
@@ -75,17 +78,50 @@
                 }
             })
 
+            var captchaResponse
+            function correctCaptcha(data) {
+                captchaResponse = data
+            }
+
+            var invalidCount = 0
             $('.submit').on('click', function(event) {
                 event.preventDefault()
 
-                $.post('/api/users.php', {method: 'login', email: $('.username').val(), password: $('.password').val()}, function(data, status) {
+                $.post('/api/users.php', {method: 'login', email: $('.username').val(), password: $('.password').val(), captchaResponse: captchaResponse}, function(data, status) {
                     if (data != 'redirect') {
-                        alert(data);
+                        let timerInterval
+                        Swal.fire({
+                            html: `<div style = "display: flex; align-items: center;"><div style = "text-align: left; margin-right: auto;">${data}</div><i class = "fa fa-close" onclick = "Swal.close()"></i></div>`,
+                            timer: 5000,
+                            timerProgressBar: true,
+                            background: '#fafafa',
+                            backdrop: false,
+                            position: 'bottom-end',
+                            showConfirmButton: false,
+                            grow: false,
+                            willClose: () => {
+                                clearInterval(timerInterval)
+                            }
+                            }).then((result) => {
+                            
+                        })
+                        invalidCount += 1
+
+                        if (invalidCount >= 3) {
+                            $('.submit').css('margin-top', '0')
+                            $('.captcha-parent').show()
+                        }
                     } else {
                         window.location.href = '/user/dashboard.php'
                     }
                 })
             })
+
+            <?php 
+                if ($_SESSION['invalid_count'] >= 3) {
+                    echo "$('.submit').css('margin-top', '0'); $('.captcha-parent').show()"; 
+                }
+            ?>
         </script>
     </body>
 </html>

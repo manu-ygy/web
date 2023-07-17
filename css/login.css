@@ -3,7 +3,7 @@ body, html {
 }
 
 body {
-    background: rgb(98, 117, 214);
+    background: linear-gradient(45deg, rgba(98,117,214,1) 0%, rgba(54,67,135,1) 47%, rgba(121,49,179,1) 100%);
     user-select: none;
 }
 
@@ -98,6 +98,10 @@ body {
     margin: auto;
     display: flex;
     gap: 16px
+}
+
+.captcha-parent {
+    display: none;
 }
 
 .submit {

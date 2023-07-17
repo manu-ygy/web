@@ -19,30 +19,39 @@
 
         <script src="https://kit.fontawesome.com/1cf918f51b.js" crossorigin="anonymous"></script>
         <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     </head>
 
     <body>
         <div class = "overlay"></div>
         <div class = "register-two-factor">
-            <center>
+            <div class = "register-two-factor-side">
                 <h1 class = "title">Tambahkan pengamanan</h1>
+                <img class = "register-image" src = "/images/2fa.png">
                 <span>Silahkan tambahkan keamanan 2 faktor autentikasi ke akun Anda.</span>
-            </center>
-
-            <div class = "show-code">
-                <img class = "two-factor-qr">
-
-                <span>Atau masukkan kode ini jika tidak bisa scan:</span>
-                <div class = "two-factor-code input"></div>
-
-                <button class = "button" onclick = "showVerify()">Sudah</button>
             </div>
 
-            <div class = "verify-code" style = "display: none;">
-                <label>Masukkan kode:</label>
-                <input class = "input two-factor-verify">
+            <div class = "register-two-factor-main">
+                <div class = "show-code">
+                    <span>Masukkan kode QR di aplikasi autentikasi:</span>
 
-                <button class = "button" onclick = "verifyTwoFactor()">Verifikasi</button>
+                    <img class = "two-factor-qr">
+
+                    <span>Atau masukkan kode ini jika tidak bisa scan:</span>
+                    <div class = "two-factor-code input"></div>
+
+                    <button class = "button" onclick = "$('.verify-code').show(); $('.show-code').hide()">Lanjut</button>
+                </div>
+
+                <div class = "verify-code" style = "display: none;">
+                    <label>Masukkan kode:</label>
+                    <input class = "input two-factor-verify">
+
+                    <div style = "display: flex; gap: 8px">
+                        <button class = "button" onclick = "$('.verify-code').hide(); $('.show-code').show()">Kembali</button>
+                        <button class = "button" onclick = "verifyTwoFactor()">Verifikasi</button>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -100,20 +109,16 @@
                 })
             }
 
-            function showVerify() {
-                $('.show-code').hide()
-                $('.verify-code').show()
-            }
-
             function verifyTwoFactor() {
                 $.post('/api/admin.php', {method: 'verify_two_factor', code: $('.two-factor-verify').val()}, function(data, status) {
                     if (data == 'redirect') {
                         $.post('/api/admin.php', {method: 'set_two_factor'}, function(data, status) {
                             $('.overlay').hide()
                             $('.register-two-factor').removeClass('active')
+                            Swal.fire({icon: 'success', title: 'Verifikasi berhasil!'})
                         })
                     } else {
-                        alert(data)
+                        Swal.fire({icon: 'error', title: 'Ada yang salah ...', text: data})
                     }
                 })
             }

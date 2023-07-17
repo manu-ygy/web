@@ -66,7 +66,7 @@
                     </div>
 
                     <div class = "two-factor-container">
-                        <label for = "two-factor">Kode autentikasi 2 factor: </label>
+                        <label for = "two-factor">Kode autentikasi 2FA: </label>
                         <div class = "input input-wrapper">
                             <i class = "fa fa-key"></i>
                             <input type = "number" class = "input-box two-factor" placeholder = "123456">
@@ -109,7 +109,7 @@
 
                             loginFilled = true
                         } else {
-                            alert(data)
+
                         }
                     })
                 } else {

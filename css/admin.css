@@ -47,29 +47,25 @@
 
 .pagination {
     display: flex;
-    border: 1px solid #c6c6c6;
     width: max-content;
-    border-radius: 8px;
+    margin-top: 32px;
 }
 
 .pagination button {
     padding: 8px 8px;
     width: 40px !important;
     height: 40px !important;
-    color: #364387ff;
+    color: #4d4d4d;
     font: inherit;
     border: 0;
     background: none;
     box-sizing: border-box;
 }
 
-.pagination button:not(:last-child) {
-    border-right: 1px solid #c6c6c6;
-}
-
-.pagination button.active {
+.pagination button:not(.pagination-next, .pagination-prev).active {
     background: #364387ff;
     color: white;
+    border-radius: 64px;
 }
 
 .pagination-next {
@@ -113,17 +109,48 @@
     left: 50%;
     transform: translate(-50%, -50%);
     z-index: 1000;
-    box-sizing: border-box;
-    padding: 32px;
 }
 
-.register-two-factor>.verify-code, .register-two-factor>.show-code {
+.register-image {
+    width: 60%;
+    height: 60%;
+    margin: 16px 0;
+}
+
+.register-two-factor-main {
+    width: 50%;
+    height: 100%;
+    padding: 32px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.register-two-factor-side {
+    background: rgb(98, 117, 214);
+    width: 50%;
+    height: 100%;
+    border-radius: 8px 0 0 8px;
+    color: white;
+    padding: 32px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.register-two-factor-main>.verify-code, .register-two-factor-main>.show-code {
     display: flex;
     flex-direction: column;
     gap: 16px;
     box-sizing: border-box;
     align-items: center;
-    max-height: 100%;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
 }
 
 .two-factor-qr {
@@ -132,5 +159,44 @@
 }
 
 .register-two-factor.active {
-    display: block;
+    display: flex;
+}
+
+.toolbar {
+    width: 100%;
+    display: flex;
+    gap: 8px;
+}
+
+.input-popup {
+    display: none;
+}
+
+.input-popup.active {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 32px;
+    background: white;
+    z-index: 999;
+}
+
+.input-popup-group {
+    display: flex;
+    gap: 16px;
+}
+
+.input-popup-group div {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.input-popup .input {
+    width: auto;
 }
